@@ -1,0 +1,39 @@
+# SPDX-License-Identifier: GPL-2.0 OR Apache-2.0 WITH LLVM-exception
+# Copyright (C) 2025 - Aleksandr Loktionov
+TARGET?=$(notdir $(CURDIR)).exe
+SOURCES?=$(shell find . -type f -name \*.c)
+
+CFLAGS  += -Wall -Wextra -Werror -pedantic \
+	-ffunction-sections -fvisibility=hidden -I ../include
+LDFLAGS += -L ../lib -flto
+
+########################################
+.PHONY: all clean run
+
+
+$(TARGET): $(SOURCES:.c=.o)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+
+debug: CFLAGS += -DDEBUG -O1 -ggdb -fsanitize=signed-integer-overflow -fsanitize=unsigned-integer-overflow -fsanitize=undefined -fsanitize=address
+debug: all
+
+release: CFLAGS += -DNDEBUG -O3
+release: all
+
+all: $(TARGET)
+
+dis:$(TARGET)
+	otool -tV $(TARGET) | less
+
+dbg:$(TARGET)
+	lldb $(TARGET)
+
+run: $(TARGET)
+	./$(TARGET)
+
+format: $(SOURCES)
+	clang-format -i $(SOURCES)
+
+clean:
+	rm -rf *.dSYM
+	rm -f *.ll *.o *.exe *.map *.dsk a.out
