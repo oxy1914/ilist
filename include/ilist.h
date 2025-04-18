@@ -37,7 +37,7 @@ typedef struct {
 	ilist_entry(&(P)->M + (P)->M.prev, __typeof__(*P), M)
 
 #define ilist_for_each_entry(P, H, M)                                   \
-	for (P = ilist_first_entry(H, __typeof__(*P), M); !ilist_is_last(&(P)->M, H); \
+	for (P = ilist_first_entry(H, __typeof__(*P), M); &P->M != (H); \
 	     P = ilist_next_entry(P, M))
 
 #define ilist_empty(H) ((H)->next == 0 && (H)->prev == 0)

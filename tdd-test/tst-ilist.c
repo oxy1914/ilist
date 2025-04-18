@@ -3,7 +3,6 @@
 #include <acutest.h>
 
 #define ILIST_IMPLEMENTATION
-#define ILIST_IDX_T short int
 #include <ilist.h>
 
 typedef struct {
@@ -124,6 +123,7 @@ void tst_list_foreach(void)
 			TEST_CHECK_(seq_expected[i] == item->data, "seq_expected[%d] == item->data;//%d == %d", i, seq_expected[i], item->data);
 			++i;
 		}
+		TEST_CHECK(i == 8);
 	}
 	TEST_CHECK(!ilist_empty(&my_list));
 	TEST_CHECK(!ilist_is_singular(&my_list));
