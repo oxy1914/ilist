@@ -3,6 +3,7 @@
 #include <acutest.h>
 
 #define ILIST_IMPLEMENTATION
+#define ILIST_IDX_T short int
 #include <ilist.h>
 
 typedef struct {

@@ -1,2 +1,2 @@
 # ilist
-tiny header only implementation if linked list with similar to linux API
+tiny header only implementation of linked list with similar to linux API
