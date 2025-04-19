@@ -6,8 +6,8 @@
 #include <ilist.h>
 
 typedef struct {
-	int data;
 	ilist_head list;
+	int data;
 } my_struct;
 
 void tst_list_empty(void)

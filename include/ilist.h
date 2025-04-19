@@ -13,7 +13,7 @@
 
 typedef struct {
 	ILIST_IDX_T next, prev;
-} ilist_head;
+} __attribute__((aligned(2 * sizeof(ILIST_IDX_T)))) ilist_head;
 
 #define ILIST_INIT(P)                      \
 	do {                               \
